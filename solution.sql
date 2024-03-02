@@ -45,9 +45,9 @@ from cte
 where rnk = 1
 group by customer_id, product_name;
 
--- Customer A’s first order are curry and sushi.
--- Customer B’s first order is curry.
--- Customer C’s first order is ramen.
+-- Customer Aâ€™s first order are curry and sushi.
+-- Customer Bâ€™s first order is curry.
+-- Customer Câ€™s first order is ramen.
 
 -- 4.What is the most purchased item on the menu and how many times was it purchased by all customers?
 
@@ -57,6 +57,8 @@ from sales
 inner join menu on sales.product_id = menu.product_id
 group by  menu.product_name
 order by most_purchased desc;
+
+-- The most purchased item on the menu is ramen which is 8 times.
 
 -- 5. Which item was the most popular for each customer ?
 
@@ -73,7 +75,7 @@ group by sales.customer_id, menu.product_name
 select customer_id, product_name, order_count from cte
 where rnk = 1
 
--- Customer A and C’s favourite item is ramen.
+-- Customer A and Câ€™s favourite item is ramen.
 -- Customer B enjoys all items on the menu. He/she is a true foodie.
 
 --6. Which item was purchased first by the customer after they became a member?
@@ -90,8 +92,8 @@ and sales.order_date > members.join_date
 select customer_id, product_name from cte
 where rnk = 1
 
--- Customer A’s first order as a member is ramen.
--- Customer B’s first order as a member is sushi.
+-- Customer Aâ€™s first order as a member is ramen.
+-- Customer Bâ€™s first order as a member is sushi.
 
 --7	Which item was purchased just before the customer became a member?
 
@@ -106,6 +108,8 @@ and sales.order_date < members.join_date
 )
 select customer_id, product_name from cte
 where rnk = 1;
+
+-- A bought Sushi and B bought curry
 
 -- 8. What is the total items and amount spent for each member before they became a member?
 
@@ -144,7 +148,7 @@ group by customer_id;
 -- The total points for Customers A, B and C are $860, $940 and $360 respectively.
 
 -- 10. In the first week after a customer joins the program (including their join date)
--- they earn 2x points on all items, not just sushi — how many points do customer A and B have at the end of January?
+-- they earn 2x points on all items, not just sushi â€” how many points do customer A and B have at the end of January?
 
 select
 	sales.customer_id, menu.price, (menu.price * 2) as total_points
